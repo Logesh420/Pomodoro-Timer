@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="theme-toggle" data-testid="theme-toggle">
+        <button id="themeBtn" class="theme-btn" aria-label="Toggle theme">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Info Section -->
+        <div class="info-section">
+            <h1>Pomodoro Timer Pro</h1>
+            <p class="subtitle">Master your focus with the Pomodoro Technique</p>
+        </div>
+
+        <!-- Motivational Quote -->
+        <div class="quote-section" data-testid="quote-section">
+            <p class="quote-text" id="quoteText">"Focus is the ultimate power skill of the 21st century."</p>
+            <p class="quote-author" id="quoteAuthor">- Robin Sharma</p>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="timer-wrapper">
+            <svg class="progress-ring" width="320" height="320">
+                <defs>
+                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" class="gradient-start" />
+                        <stop offset="100%" class="gradient-end" />
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <circle
+                    class="progress-ring-bg"
+                    stroke="var(--progress-bg)"
+                    stroke-width="12"
+                    fill="transparent"
+                    r="150"
+                    cx="160"
+                    cy="160"
+                />
+                <circle
+                    class="progress-ring-circle-active"
+                    stroke="url(#progressGradient)"
+                    stroke-width="12"
+                    fill="transparent"
+                    r="150"
+                    cx="160"
+                    cy="160"
+                    filter="url(#glow)"
+                />
+            </svg>
+            <div class="timer-display">
+                <div class="timer-mode" data-testid="timer-mode">Focus</div>
+                <div class="timer-time" data-testid="timer-time">25:00</div>
+                <div class="timer-status" data-testid="timer-status">Ready to start</div>
+            </div>
+        </div>
+
+        <!-- Session Statistics -->
+        <div class="stats-container">
+            <div class="stat-card" data-testid="session-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-info">
+                    <div class="stat-label">Focus Sessions</div>
+                    <div class="stat-value" id="focusCount">0</div>
+                </div>
+            </div>
+            <div class="stat-card" data-testid="total-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-info">
+                    <div class="stat-label">Total Sessions</div>
+                    <div class="stat-value" id="totalCount">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="controls">
+            <button class="btn btn-primary" id="startBtn" data-testid="start-btn">
+                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <span class="btn-text">Start</span>
+            </button>
+            <button class="btn btn-secondary" id="resetBtn" data-testid="reset-btn">
+                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10"/>
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span class="btn-text">Reset</span>
+            </button>
+            <button class="btn btn-secondary" id="skipBtn" data-testid="skip-btn">
+                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="5 4 15 12 5 20 5 4"/>
+                    <polygon points="16 4 16 20 18 20 18 4 16 4"/>
+                </svg>
+                <span class="btn-text">Skip</span>
+            </button>
+        </div>
+
+        <!-- Mode Switcher -->
+        <div class="mode-switcher">
+            <button class="mode-btn active" data-mode="focus" data-testid="focus-mode-btn">
+                <span class="mode-icon">🎯</span>
+                <span>Focus</span>
+                <span class="mode-duration">25m</span>
+            </button>
+            <button class="mode-btn" data-mode="shortBreak" data-testid="short-break-btn">
+                <span class="mode-icon">☕</span>
+                <span>Short Break</span>
+                <span class="mode-duration">5m</span>
+            </button>
+            <button class="mode-btn" data-mode="longBreak" data-testid="long-break-btn">
+                <span class="mode-icon">🌟</span>
+                <span>Long Break</span>
+                <span class="mode-duration">15m</span>
+            </button>
+        </div>
+
+        <!-- Auto-switch indicator -->
+        <div class="auto-switch-indicator" data-testid="auto-switch-indicator">
+            <label class="switch">
+                <input type="checkbox" id="autoSwitch" checked>
+                <span class="slider"></span>
+            </label>
+            <span class="switch-label">Auto-start next session</span>
+        </div>
+
+        <!-- Keyboard Hint -->
+        <div class="keyboard-hint">
+            <kbd>Space</kbd> Start/Pause • <kbd>R</kbd> Reset • <kbd>S</kbd> Skip
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
